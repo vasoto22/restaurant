@@ -46,7 +46,7 @@ export const loginWithEmailAndPassword = async(email, password) => {
 }
 
 export const uploadImage = async(image, path, name) => {
-    const result = { statusResponse: false, error: null, url: null}
+    const result = { statusResponse: false, error: null, url: null }
     const ref = firebase.storage().ref(path).child(name)
     const blob = await fileToBlob(image)
 
@@ -180,6 +180,53 @@ export const getDocumentById = async(collection, id) => {
         result.document = response.data()
         result.document.id = response.id
         // response.document.id = response.id
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result
+}
+
+export const updateDocument = async(collection, id, data) => {
+    const result = { statusResponse: true, error: null }
+    try {
+        await db.collection(collection).doc(id).update(data)
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const getRestaurantReviews = async(id) => {
+    const result = { statusResponse: true, error: null, reviews: [] }
+    try {
+        const response = await db
+            .collection("reviews")
+            .where("idRestaurant", "==", id)
+            .get()
+        response.forEach((doc) => {
+            const review = doc.data()
+            review.id = doc.id
+            result.reviews.push(review)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result
+}
+
+export const getIsFavorite = async(idRestaurant) => {
+    const result = { statusResponse: true, error: null, isFavorite: false}
+
+    try {
+        const response = await db
+            .collection("favorites")
+            .where("idRestaurant", "==", idRestaurant)
+            .where("idUser", "==", getCurrentUser().uid)
+            .get()
+        result.isFavorite = response.docs.length > 0
     } catch (error) {
         result.statusResponse = false
         result.error = error
