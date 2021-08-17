@@ -2,12 +2,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
  const firebaseConfig = {
-    apiKey: "AIzaSyB2RtUnfw5G2qD0axasURzBi59P1rWymR0",
-    authDomain: "restaurants-fbc3d.firebaseapp.com",
-    projectId: "restaurants-fbc3d",
-    storageBucket: "restaurants-fbc3d.appspot.com",
-    messagingSenderId: "1011971073882",
-    appId: "1:1011971073882:web:edba209676cc00fa6a3563"
-  }
-  // Initialize Firebase
-  export const firebaseapp = firebase.initializeApp(firebaseConfig)
+  apiKey: "AIzaSyAF8q5OD0nDOXJtxEim1Y8IcmnDreXXKwU",
+  authDomain: "restaurants-39396.firebaseapp.com",
+  projectId: "restaurants-39396",
+  storageBucket: "restaurants-39396.appspot.com",
+  messagingSenderId: "344919358795",
+  appId: "1:344919358795:web:2eb3eeb411613db4103cce"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
